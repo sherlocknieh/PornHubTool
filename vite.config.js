@@ -8,7 +8,7 @@ export default defineConfig({
       entry: 'src/main.js',
       build: { fileName: 'pornhub-tool.user.js' },
       userscript: {
-        name: 'pornhub-tool',
+        name: 'PornhubTool',
         namespace: 'https://github.com/sherlocknieh/',
         version: '2026.10.23.1',
         description: '增强一些XX网站的浏览体验',
