@@ -13,3 +13,5 @@
 - Musedam 视频自动播放, 
 
 - Greasyfork 和 Sleazyfork 页面互链
+
+安装地址: https://github.com/sherlocknieh/PornHubTool/raw/main/dist/pornhub-tool.user.js
