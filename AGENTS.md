@@ -38,3 +38,4 @@ npm run build
 - 页面可能动态加载内容；处理动态元素时复用 `ElementTracker` 的 `track(selector, callback)`，并保证回调可重复触发而不会重复插入 UI。
 - 保持现有的 ES module 写法和单引号风格，避免引入框架或新的运行时依赖。
 - 修改 userscript 匹配域名、版本或元数据时同步检查 `vite.config.js`；不要只修改生成的 `dist/` 文件。
+- 提交时更新 `vite.config.js` 中的版本号 (使用当前时间戳，例如 `2026.06.15.1800`), 并完成构建推送到仓库。
