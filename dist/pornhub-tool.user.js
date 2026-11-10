@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PornhubTool
 // @namespace    https://github.com/sherlocknieh/
-// @version      2026.11.10.1451
+// @version      2026.11.10.1503
 // @description  增强一些XX网站的浏览体验
 // @icon         data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2264%22%20height%3D%2264%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2232%22%20fill%3D%22black%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2242%22%20text-anchor%3D%22middle%22%20font-size%3D%2232%22%20fill%3D%22white%22%3EPH%3C%2Ftext%3E%3C%2Fsvg%3E
 // @match        https://greasyfork.org/*
@@ -151,12 +151,17 @@
 	function cleanSearchTerm(term) {
 		return term.replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\s+/g, " ").trim();
 	}
+	function cleanGifSearch(pageUrl) {
+		const term = pageUrl.searchParams.get("search");
+		if (!term) return false;
+		const cleaned = cleanSearchTerm(term);
+		if (cleaned === term) return false;
+		pageUrl.searchParams.set("search", cleaned);
+		return true;
+	}
 	function toSearchUrl(pageUrl, type) {
 		pageUrl.pathname = `/${type}/search`;
-		if (type.startsWith("gif")) {
-			const term = pageUrl.searchParams.get("search");
-			if (term) pageUrl.searchParams.set("search", cleanSearchTerm(term));
-		}
+		if (type.startsWith("gif")) cleanGifSearch(pageUrl);
 		return pageUrl;
 	}
 	function createSwitchButton(pageUrl, isVideo) {
@@ -182,6 +187,10 @@
 	function addSearchSwitch(url) {
 		if (!url.includes("search")) return;
 		const pageUrl = new URL(url);
+		if (/^\/gifs?\/search\/?$/.test(pageUrl.pathname) && cleanGifSearch(pageUrl)) {
+			window.location.replace(pageUrl.href);
+			return;
+		}
 		const pageType = pageUrl.pathname.match(/^\/(video|gif|gifs)$/)?.[1];
 		if (pageType) {
 			window.location.replace(toSearchUrl(pageUrl, pageType).href);
