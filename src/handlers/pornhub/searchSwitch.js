@@ -1,3 +1,18 @@
+// 搜索词只保留字母、数字和空格，避免 - & 等特殊字符干扰 GIF 搜索
+function cleanSearchTerm(term) {
+    return term.replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+}
+
+// 生成目标搜索页地址，GIF 搜索页使用清理后的搜索词
+function toSearchUrl(pageUrl, type) {
+    pageUrl.pathname = `/${type}/search`;
+    if (type.startsWith('gif')) {
+        const term = pageUrl.searchParams.get('search');
+        if (term) pageUrl.searchParams.set('search', cleanSearchTerm(term));
+    }
+    return pageUrl;
+}
+
 function createSwitchButton(pageUrl, isVideo) {
     const button = document.createElement('a');
     button.textContent = isVideo ? 'ToGIF' : 'ToVideo';
@@ -27,12 +42,10 @@ export default function addSearchSwitch(url) {
     const pageUrl = new URL(url);
     const pageType = pageUrl.pathname.match(/^\/(video|gif|gifs)$/)?.[1];
     if (pageType) {
-        pageUrl.pathname = `/${pageType}/search`;
-        window.location.replace(pageUrl.href);
+        window.location.replace(toSearchUrl(pageUrl, pageType).href);
         return;
     }
 
     const isVideo = pageUrl.pathname.startsWith('/video');
-    pageUrl.pathname = `/${isVideo ? 'gif' : 'video'}/search`;
-    createSwitchButton(pageUrl, isVideo);
+    createSwitchButton(toSearchUrl(pageUrl, isVideo ? 'gif' : 'video'), isVideo);
 }
