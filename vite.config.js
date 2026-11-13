@@ -10,7 +10,7 @@ export default defineConfig({
       userscript: {
         name: 'PornhubTool',
         namespace: 'https://github.com/sherlocknieh/',
-        version: '2026.11.10.1503',
+        version: '2026.11.14.0558',
         description: '增强一些XX网站的浏览体验',
         icon: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2264%22%20height%3D%2264%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2232%22%20fill%3D%22black%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2242%22%20text-anchor%3D%22middle%22%20font-size%3D%2232%22%20fill%3D%22white%22%3EPH%3C%2Ftext%3E%3C%2Fsvg%3E',
         match: [
@@ -21,7 +21,6 @@ export default defineConfig({
           'https://nsfw.xxx/*',
           'https://rule34.xxx/*',
           'https://anacams.com/post/*',
-          'https://www.sex.com/*/gifs/*',
           'https://www.tekjam.com/album/*'
         ],
         grant: 'none',

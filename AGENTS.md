@@ -16,7 +16,6 @@
   - `videoEnhancements.js`：移除年龄验证、取消 GIF 静音、显示原始标题。
   - `gifLink.js`：为带 `data-gif` 的元素添加 GIF 链接。
   - `searchSwitch.js`：在 Video/GIF 搜索页之间跳转或添加切换按钮；跳转 GIF 搜索页时把搜索词清理为字母、数字和空格。
-- `src/handlers/sexcom.js`：为 Sex.com GIF 图片添加 NameThatPorn 搜索按钮。
 - `src/handlers/greasyfork.js`：在 GreasyFork 与 SleazyFork 页面之间添加互链。
 - `src/handlers/tekjam.js`：在 Tekjam 相册页恢复移动端视图切换控件，并让图片列表使用响应式多列瀑布流（默认 4 列，中等宽度 3 列，窄屏 2 列）；选择 Large photos 时尊重页面的 `data-aview="large"` 状态并恢复单列。
 - `vite.config.js`：userscript 元数据、匹配域名和构建产物配置。

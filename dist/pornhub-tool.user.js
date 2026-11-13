@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PornhubTool
 // @namespace    https://github.com/sherlocknieh/
-// @version      2026.11.10.1503
+// @version      2026.11.14.0558
 // @description  增强一些XX网站的浏览体验
 // @icon         data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2264%22%20height%3D%2264%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2232%22%20fill%3D%22black%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2242%22%20text-anchor%3D%22middle%22%20font-size%3D%2232%22%20fill%3D%22white%22%3EPH%3C%2Ftext%3E%3C%2Fsvg%3E
 // @match        https://greasyfork.org/*
@@ -11,7 +11,6 @@
 // @match        https://nsfw.xxx/*
 // @match        https://rule34.xxx/*
 // @match        https://anacams.com/post/*
-// @match        https://www.sex.com/*/gifs/*
 // @match        https://www.tekjam.com/album/*
 // @grant        none
 // ==/UserScript==
@@ -211,35 +210,6 @@
 		addGifLink(tracker);
 		addSearchSwitch(url);
 	}
-	function initSexcomHandler() {
-		if (!window.location.href.includes("sex.com")) return;
-		new ElementTracker().track("img[data-testid=\"pin-carousel-image\"]", (img) => {
-			const imgUrl = img.src;
-			console.warn("发现 GIF 图片", imgUrl);
-			const searchBtn = document.createElement("button");
-			searchBtn.textContent = "NameThatPorn";
-			Object.assign(searchBtn.style, {
-				position: "absolute",
-				bottom: "10px",
-				right: "10px",
-				padding: "5px 10px",
-				backgroundColor: "rgba(0,0,0,0.6)",
-				color: "white",
-				border: "none",
-				borderRadius: "4px",
-				cursor: "pointer",
-				fontSize: "12px",
-				zIndex: 1e3
-			});
-			searchBtn.onclick = () => {
-				const searchUrl = `https://namethatporn.com/search/images.html?url=${encodeURIComponent(imgUrl)}`;
-				window.open(searchUrl, "_blank");
-			};
-			img.parentElement.style.position = "relative";
-			img.parentElement.appendChild(searchBtn);
-			console.warn("已添加 NameThatPorn 搜索按钮");
-		});
-	}
 	function initGreasyforkHandler() {
 		const url = window.location.href;
 		const isGreasy = url.includes("greasyfork.org");
@@ -302,7 +272,6 @@
 	}
 	initVideoHandler();
 	initPornhubHandler();
-	initSexcomHandler();
 	initGreasyforkHandler();
 	initTekjamHandler();
 })();
